@@ -1,7 +1,7 @@
 {
   "name": "TOP-TodoList",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Todo List project from The Odin Project using Webpack",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,9 +9,17 @@
     "dev": "webpack serve --open --config webpack.dev.js",
     "deploy": "git checkout gh-pages && git merge main --no-edit && webpack --config webpack.prod.js && git add dist -f && git commit -m 'Deployment commit' && git subtree push --prefix dist origin gh-pages && git checkout main"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["todo", "webpack", "javascript", "odin-project"],
+  "author": "Sateda",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sateda/TOP-TodoList.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sateda/TOP-TodoList/issues"
+  },
+  "homepage": "https://sateda.github.io/TOP-TodoList/",
   "devDependencies": {
     "css-loader": "^7.1.2",
     "html-loader": "^5.1.0",
