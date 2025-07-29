@@ -18,7 +18,7 @@ const todoList = (function() {
     }
 
     // return JSON
-    function getAllTodos() {
+    function getTodos() {
         return todos;
     }
 
@@ -38,9 +38,8 @@ const todoList = (function() {
     }
 
     // edit todo
-    function editTodo(uuid, title, description, dueDate, priority, notes) {
+    function editTodo(uuid, projectID, title, description, dueDate, priority, notes) {
         const todoIndex = todos.findIndex((todo) => todo.uuid === uuid);
-        const projectID = todos[todoIndex].projectID;
         const completed = todos[todoIndex].completed;
         const newTodoUuid = todos[todoIndex].uuid;
         const oldTodo = todos[todoIndex];
@@ -60,7 +59,7 @@ const todoList = (function() {
         updateTodos(newTodos);
     }
  
-    return { getAllTodos, updateTodos, addTodo, editTodo, removeTodo};
+    return { getTodos, updateTodos, addTodo, editTodo, removeTodo};
 
 })();
 

@@ -12,5 +12,5 @@ import { projectList } from "./projectList.js";
  * 
  */
 
-const todos = todoList.getAllTodos();
+const todos = todoList.getTodos();
 console.log(todos);
