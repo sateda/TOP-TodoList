@@ -1,6 +1,7 @@
 // src/index.js
 import "./styles.css";
-import { todolist } from "./todoList.js";
+import { todoList } from "./todoList.js";
+import { projectList } from "./projectList.js";
 
 /**
  * 
@@ -11,3 +12,5 @@ import { todolist } from "./todoList.js";
  * 
  */
 
+const todos = todoList.getAllTodos();
+console.log(todos);

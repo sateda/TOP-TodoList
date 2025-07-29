@@ -1,7 +1,7 @@
 /**
  * file: storage.js
  * 
- * App stores data in the following arrays
+ * App stores data in the following objects
  *  - TOP-todoList.todos
  *  - TOP-todoList.projects
  * 
@@ -19,10 +19,9 @@ const storage = (function() {
 
     // retrieve object from storage
     function getStorage(container) {
-       console.log("get storage" + container);
        const object = namespace + container;
-       const todos = JSON.parse(localStorage.getItem(object));
-       console.log(todos);
+       const items = JSON.parse(localStorage.getItem(object));
+       return items;
     }
 
     // Public API

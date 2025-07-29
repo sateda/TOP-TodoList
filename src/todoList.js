@@ -3,14 +3,65 @@ import { storage } from "./storage";
 import { createTodo } from "./createTodo";
 
 const todoList = (function() {
-    // Retrieve data from storage
-    const todos = storage.getStorage("todos");
-    const projects = storage.getStorage("projects");
+    // load data
+    const todos = storage.getStorage("todos") || populateOnFirstVisit();
 
-    // creates some todo as test
-    const todo1 = createTodo("test groceries", "Pick up milk, eggs, and bread from the store.","2025-07-28","High","Use discount card at checkout");
-    const todo2 = createTodo("Finish project report","Complete and submit the quarterly project report to the manager.","2025-07-30","Medium","Include updated sales figures and charts");
+    // populates todos array and saves it when this is the first visit
+    function populateOnFirstVisit() {
+        const defaultTodos = [
+        createTodo("Buy groceries", "Milk, eggs, bread", "2025-08-01", "High", "Use loyalty card"),
+        createTodo("Call dentist", "Book an appointment", "2025-08-03", "Medium", "Check insurance")
+    ];
 
-    const allTodos = {todo1, todo2};
-    storage.saveStorage("projects",allTodos);
+        storage.saveStorage("todos", defaultTodos);
+        return defaultTodos;
+    }
+
+    // return JSON
+    function getAllTodos() {
+        return todos;
+    }
+
+    // update todos
+    function updateTodos(newTodos) {
+        todos.length = 0;
+        todos.push(...newTodos) // update memory
+        storage.saveStorage("todos",todos); // update storage
+        return todos;
+    }
+
+    // add todo
+    function addTodo(title, description, dueDate, priority, notes) {
+        const todo = createTodo(title, description, dueDate, priority, notes);
+        todos.push(todo);
+        updateTodos(todos);
+    }
+
+    // edit todo
+    function editTodo(uuid, title, description, dueDate, priority, notes) {
+        const todoIndex = todos.findIndex((todo) => todo.uuid === uuid);
+        const projectID = todos[todoIndex].projectID;
+        const completed = todos[todoIndex].completed;
+        const newTodoUuid = todos[todoIndex].uuid;
+        const oldTodo = todos[todoIndex];
+
+        const newTodo = createTodo(title, description, dueDate, priority, notes);
+        newTodo.uuid = newTodoUuid;
+        newTodo.projectID = projectID;
+        newTodo.completed = completed;
+        
+        todos[todoIndex] = newTodo;
+        updateTodos(todos);
+    }
+
+    // remove todo
+    function removeTodo(uuid) {
+        const newTodos = todos.filter((todo) => todo.uuid !== uuid);
+        updateTodos(newTodos);
+    }
+ 
+    return { getAllTodos, updateTodos, addTodo, editTodo, removeTodo};
+
 })();
+
+export { todoList }

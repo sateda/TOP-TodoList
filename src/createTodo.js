@@ -4,6 +4,7 @@ function createTodo (title, description, dueDate, priority, notes) {
 
     return {
         uuid : uuid,
+        projectID,
         title,
         description,
         dueDate,
